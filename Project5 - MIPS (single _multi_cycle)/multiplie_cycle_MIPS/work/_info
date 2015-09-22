@@ -1,0 +1,173 @@
+m255
+K3
+13
+cModel Technology
+dD:\My Desktop\MIPS\single_cycle_MIPS
+vaddsub_27bit
+IlIch3=g`I`4_0:24RXLfR0
+Vm`Ym^l;_LjTmMGV8XWl^B2
+Z0 dD:\My Desktop\MIPS\multiplie_cycle_MIPS
+Z1 w1351270084
+Z2 8D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project4- Float Point Adder/fp_adder.v
+Z3 FD:/My Desktop/ee/9.Term7-911/ACA/Projects/Project4- Float Point Adder/fp_adder.v
+L0 132
+Z4 OV;L;6.4a;39
+r1
+31
+Z5 o-work work -nocovercells -O0
+!s100 f[[07UjLIhDT5fhbn033_1
+!s85 0
+vasync_mem
+I7HDB[_LLb5;V6j58KkZN53
+VA0d6oo[2b?V]I<[286Y2j2
+Z6 dD:\My Desktop\ee\9.Term7-911\ACA\Projects\Project5 - MIPS (single _multi_cycle)\multiplie_cycle_MIPS
+Z7 w1354631371
+Z8 8D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project5 - MIPS (single _multi_cycle)/multiplie_cycle_MIPS/multi_cycle_mips.v
+Z9 FD:/My Desktop/ee/9.Term7-911/ACA/Projects/Project5 - MIPS (single _multi_cycle)/multiplie_cycle_MIPS/multi_cycle_mips.v
+L0 491
+R4
+r1
+31
+R5
+!s100 iUo:l>J_ki?5BXN?SfhlB2
+!s85 0
+vfp_add__tb
+I1dRmVCf3g>8ZX2Xo=jBzX2
+V[I7`cC2FiiIO@Fei36fC_2
+Z10 dD:\My Desktop\MIPS\multiplie_cycle_MIPS
+w1354005345
+8D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project4- Float Point Adder/fp_adder_tb.v
+FD:/My Desktop/ee/9.Term7-911/ACA/Projects/Project4- Float Point Adder/fp_adder_tb.v
+L0 4
+R4
+r1
+31
+R5
+!s100 LIgMC^YF3JCkLVAbR5ng`1
+!s85 0
+vfp_adder
+I0ZXjCa]MWZ3Ci`OK:Imm<0
+VTN2`<=b^49>AdSGN:eh721
+R10
+R1
+R2
+R3
+L0 8
+R4
+r1
+31
+R5
+!s100 Q=Q:CK`O]aRi4h5>=k:Hi0
+!s85 0
+vfull_adder
+IRSoajmlD4<Deli]KmdS1]0
+VK:YUAC1W?MVFZb8>OW=VA3
+R6
+R7
+R8
+R9
+L0 683
+R4
+r1
+31
+R5
+!s100 NeVYXM?dJXhPj:[m1oTM<0
+!s85 0
+vmulti_cycle_mips
+IVEjla2]_0Tb20nXNe42:z1
+VOmOC?z_M1n6j5P;W?UYa;2
+R6
+R7
+R8
+R9
+L0 24
+R4
+r1
+31
+R5
+!s100 ;YTZP<0LU1^=GYf6jiz:f0
+!s85 0
+vmulti_cycle_mips__tb
+!s100 DSRg1jQ2ILB;]n>QVFj5M3
+IaK0adWYmLTm537hlhSZgf1
+Vz6AUcK]L<JbOko:QLD_R43
+R6
+w1354627242
+8D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project5 - MIPS (single _multi_cycle)/multiplie_cycle_MIPS/multi_cycle_mips__tb.v
+FD:/My Desktop/ee/9.Term7-911/ACA/Projects/Project5 - MIPS (single _multi_cycle)/multiplie_cycle_MIPS/multi_cycle_mips__tb.v
+L0 4
+R4
+r1
+!s85 0
+31
+R5
+vmultiplie_cycle_mips
+I@89`@IfnP`[FDGnYVVgd`2
+VkbBzHCGXNzBMnV6E=b46R0
+R10
+w1353687583
+8D:/My Desktop/MIPS/multiplie_cycle_MIPS/multiplie_cycle_mips.v
+FD:/My Desktop/MIPS/multiplie_cycle_MIPS/multiplie_cycle_mips.v
+L0 22
+R4
+r1
+31
+R5
+!s100 GT>VEP63`JRTm^B_iSBog1
+!s85 0
+vmy_alu
+If:8eZemcLT`a0=c[l7io82
+V=lSDkk5?]KAhU:l3;4?W01
+R6
+R7
+R8
+R9
+L0 550
+R4
+r1
+31
+R5
+!s100 7@4ngJCeSn@de7;6Hf4mU1
+!s85 0
+vreg_file
+ILHET0]PgJWL^PR8I4a5b21
+VhS7TEIC^ekO`FilNgEd2J3
+R6
+R7
+R8
+R9
+L0 517
+R4
+r1
+31
+R5
+!s100 d]>PmZiAiI7Ha5?z95^K52
+!s85 0
+vsigned_multiplier
+I_a72IWENjVSUbDM=SHO^^0
+VFe<doaiKWZ:0UB6`T6IJU3
+R6
+R7
+R8
+R9
+L0 581
+R4
+r1
+31
+R5
+!s100 ];><d;LIG`PDF9Y99L0Vf2
+!s85 0
+vsub_8bit
+IY16S^a0Y2HBmnzHXYVW=61
+VE5Z_L=?H^mbzAa3Ho?c?]0
+R10
+R1
+R2
+R3
+L0 115
+R4
+r1
+31
+R5
+!s100 o4O;Mf3@7DIXJk2j>[5Gj3
+!s85 0

@@ -1,0 +1,939 @@
+/*Pipeline MIPS Processor
+Ramyad Hadidi
+1st: wriiten 31st Dec 2012
+
+*/
+
+`timescale 1ns/1ns
+
+`define DEBUG_RF	// comment this line to disable register content  writing 
+`define DEBUG_MEM	// comment this line to disable memory content  writing 
+
+`define AND  	4'b0000		//ALUop (module) definitions
+`define OR 	 	4'b0001
+`define ADD  	4'b0010
+`define SUB  	4'b0011
+`define NOR  	4'b0100
+`define SLT  	4'b0101
+`define XOR  	4'b0110
+`define SLTU 	4'b0111
+`define LUI  	4'b1000
+`define PASS 	4'b1001
+
+
+module  pipeline_mips (
+            input clk,
+            input reset
+        );
+		
+	reg 	[31:0] 	PC;
+	reg 	[31:0]	ins_w;
+	wire 	[31:0]	ins_w1;
+	wire 	[31:0] 	PC4;
+	reg 	[31:0] 	PCline;
+	reg		[31:0]	IFDE_PCplus4;
+	reg		[31:0]	IFDE_ins;
+	reg				WRTrf;
+	reg				eqneq;
+	reg				PCsrc;
+	wire	[31:0]	WB_WD_line;
+	wire	[ 4:0]	WB_WR_line;
+	wire	[31:0]	DE_RD1_line;
+	wire	[31:0]	DE_RD2_line;
+	reg				Regdst;
+	reg		[ 4:0]	DE_WR_line;
+	reg				SENZE;
+	wire	[31:0] 	DE_ZESE;
+	reg		[31:0]	DEEX_PCplus4;
+	reg		[31:0]	DEEX_RD1;
+	reg		[31:0]	DEEX_RD2;
+	reg		[ 4:0]	DEEX_WR;
+	reg		[31:0]	DEEX_imm16;
+	wire	[31:0]	EX_new_PC;
+	reg		[31:0]	aluA_line;
+	reg		[31:0]	aluB_line;
+	reg				ALUsrc;
+	wire			EX_ALUZero;
+	wire	[31:0]	EX_ALUResult;
+	reg		[ 3:0]	ALUop;
+	reg		[31:0]	EXME_new_PC;
+	reg				EXME_ALUzero;
+	reg		[31:0]	EXME_ALUResult;
+	reg		[31:0]	EXME_RD2;
+	reg		[ 4:0]	EXME_WR;
+	reg				WRTdata;
+	reg				Readdata;
+	reg		[31:0]	ME_WD_line;
+	wire	[31:0] 	ME_data_line;
+	reg		[31:0]	MEWB_Mem_data;
+	reg		[31:0]	MEWB_ALUResult;
+	reg		[ 4:0]	MEWB_WR;
+	reg				MemtoReg;
+	reg				branch;
+	reg				PCjump;
+	reg		[31:0]	PC_line2;
+	reg		[31:0]	aluB_line_2;
+	reg		[1:0]	forwardA;
+	reg		[1:0]	forwardB;
+	reg				forwardMem;
+	reg				stall;
+	reg				cntME_WRTdata_line;
+	reg				cntME_Readdata_line;
+	reg				cntWB_WRTrf_line;
+	reg				WRTIFDE;
+	reg				WRTPC;
+	
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^DATAPATH_START^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//=====================================
+	//pipeline stage Instruction Fetch (IF)
+
+	//adder
+	assign PC4=PC+3'd4;
+
+	//mux s
+	always @(*) begin
+		case(PCjump)
+			1'b0:	PC_line2 = PC4;
+			1'b1:	PC_line2 = {PC[31:28],IFDE_ins[25:0],2'b00};
+		endcase
+		case(PCsrc)
+			1'b0:	PCline = PC_line2;
+			1'b1:	PCline = EXME_new_PC;
+		endcase
+	end
+
+	//PC register
+	always @(posedge clk) begin
+		casex({reset,WRTPC})
+			2'b00:	PC <= PC;
+			2'b01:	PC <= PCline;
+			2'b1x:	PC <= 32'h00000000;
+		endcase
+	end
+
+	//Program Memory
+	async_mem InsMem(
+		.clk(clk),
+		.write(1'b0),
+		.read (1'b1),
+		.address(PC),
+		.write_data(32'b0),
+		.read_data(ins_w1)
+	);
+	
+	//for flushing (in ins_w way) make NOP
+	always @(*)	begin
+		case (PCsrc)
+			1'b0:	ins_w = ins_w1;
+			1'b1:	ins_w = 32'b0;
+		endcase
+	end
+
+	//=====================================
+	// __IF/DE __  pipeline stage Instruction Fetch (IF) registers
+	always @(posedge clk) begin
+		casex ({reset,WRTIFDE})
+			2'b1x: begin
+				IFDE_ins 		<= 0;
+				IFDE_PCplus4 	<= 0;
+			end
+			2'b01: begin
+				IFDE_ins 		<= ins_w;
+				IFDE_PCplus4 	<= PC4;
+			end
+			2'b00: begin
+				IFDE_ins 		<= IFDE_ins;
+				IFDE_PCplus4 	<= IFDE_PCplus4;
+			end
+		endcase
+	end
+	
+	//=====================================
+	//pipeline stage Instruction Decode (DE)
+	
+	//Register File
+	reg_file rf(
+		.clk(clk),
+		.write(WRTrf),
+		.WR(WB_WR_line),
+		.WD(WB_WD_line),
+		.RR1(IFDE_ins[25:21]),
+		.RR2(IFDE_ins[20:16]),
+		.RD1(DE_RD1_line),
+		.RD2(DE_RD2_line)
+	);
+		
+	//WR mux
+	always @(*) begin
+		case (Regdst)
+			1'b0:	DE_WR_line = IFDE_ins[20:16];
+			1'b1:	DE_WR_line = IFDE_ins[15:11];
+		endcase
+	end
+	
+	//SE/ZE
+	assign DE_ZESE = SENZE?{{16{IFDE_ins[15]}},IFDE_ins[15:0]}:{16'h0000,IFDE_ins[15:0]};
+
+	//=====================================
+	//__DE/EX __pipeline stage Instruction Decode (DE) registers
+	always @(posedge clk) begin
+			DEEX_PCplus4 	<= IFDE_PCplus4;
+			DEEX_RD1 		<= DE_RD1_line;
+			DEEX_RD2 		<= DE_RD2_line;
+			DEEX_WR  		<= DE_WR_line;
+			DEEX_imm16 		<= DE_ZESE;
+			if (reset) begin
+				DEEX_PCplus4 	<= 0;
+				DEEX_RD1 		<= 0;
+				DEEX_RD2 		<= 0;
+				DEEX_WR  		<= 0;
+				DEEX_imm16 		<= 0;
+			end
+	end
+	
+	//=====================================
+	//pipeline stage execute (EX)
+	
+	//ALU inputs Muxs (for forwarding and imm)
+	always @(*) begin
+		case(forwardA)
+			2'b00:	aluA_line = DEEX_RD1;
+			2'b01:	aluA_line = EXME_ALUResult;
+			2'b10:	aluA_line = WB_WD_line;
+			2'b11:	aluA_line = 32'bx;
+		endcase
+	end
+	
+	always @(*) begin
+		case(forwardB)
+			2'b00:	aluB_line_2 = DEEX_RD2;
+			2'b01:	aluB_line_2 = EXME_ALUResult;
+			2'b10:	aluB_line_2 = WB_WD_line;
+			2'b11:	aluB_line_2 = 32'bx;
+		endcase
+		case(ALUsrc)
+			1'b0:	aluB_line = aluB_line_2;
+			1'b1:	aluB_line = DEEX_imm16;
+		endcase
+	end
+	
+	//ALU
+	my_alu ALU(
+	   .aluA(aluA_line),
+	   .aluB(aluB_line),
+	   .aluOp(ALUop),
+	   .aluResult(EX_ALUResult),
+	   .ALUZero(EX_ALUZero)
+	);
+	
+	//address generation
+	assign EX_new_PC = DEEX_PCplus4 + (DEEX_imm16<<2);
+	
+	//=====================================
+	//__EX/ME__pipeline stage execute (EX) registers
+	always @(posedge clk) begin
+			EXME_new_PC 	<= EX_new_PC;
+			EXME_ALUzero 	<= EX_ALUZero;
+			EXME_ALUResult 	<= EX_ALUResult;
+			EXME_RD2 		<= aluB_line_2;
+			EXME_WR  		<= DEEX_WR;
+			if (reset) begin
+				EXME_new_PC 	<= 0;
+				EXME_ALUzero 	<= 0;
+				EXME_ALUResult 	<= 0;
+				EXME_RD2 		<= 0;
+				EXME_WR  		<= 0;
+			end
+	end
+	
+	//=====================================
+	//pipeline stage execute (ME)
+	
+	//branch
+	always @(*) begin
+		casex ({reset,branch,eqneq,EXME_ALUzero})
+			4'b1xxx:	PCsrc	=	1'bx;
+			4'b00xx:	PCsrc	=	1'b0;
+			4'b0110:	PCsrc	=	1'b0;
+			4'b0111:	PCsrc	=	1'b1;
+			4'b0100:	PCsrc	=	1'b1;
+			4'b0101:	PCsrc	=	1'b0;
+			default:	PCsrc	=	1'b0;
+		endcase
+	end
+	
+	//mux write data
+	always @(*)	begin
+		case(forwardMem)
+			1'b0: ME_WD_line = EXME_RD2;
+			1'b1: ME_WD_line = WB_WD_line;
+		endcase
+	end
+	
+	//data Memory
+	async_mem DataMem(
+		.clk(clk),
+		.write(WRTdata),
+		.read(Readdata),
+		.address(EXME_ALUResult),
+		.write_data(ME_WD_line),
+		.read_data(ME_data_line)
+	);
+	
+	//=====================================
+	//__ME/WB__pipeline stage execute (ME) registers
+	always @(posedge clk) begin
+			MEWB_Mem_data 	<= ME_data_line;
+			MEWB_ALUResult 	<= EXME_ALUResult;
+			MEWB_WR  		<= EXME_WR;
+			if (reset) begin
+				MEWB_Mem_data 	<= 0;
+				MEWB_ALUResult 	<= 0;
+				MEWB_WR  		<= 0;
+			end
+	end
+	
+	//=====================================
+	//pipeline stage execute (WB)
+	
+	assign WB_WR_line = MEWB_WR;
+	
+	//mem to reg mux
+	assign WB_WD_line = MemtoReg ? MEWB_ALUResult : MEWB_Mem_data;
+	
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^DATAPATH_END^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^CONTROLLER_START^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	localparam	//opcodes
+		R_type	= 6'h00,
+		j		= 6'h02,
+		beq		= 6'h04,
+		bne		= 6'h05,
+        lw		= 6'h23,
+        sw		= 6'h2b,
+		addiu	= 6'h09,
+		slti	= 6'h0a,
+		sltiu	= 6'h0b,
+		andi	= 6'h08,
+		ori		= 6'h0d,
+		xori	= 6'h0e,
+		lui		= 6'h0f;
+				 
+	localparam	//func field opcodes
+		opaddu	= 6'h21,
+		opsubu	= 6'h23,
+		opand 	= 6'h24,
+		opor	= 6'h25,
+		opxor	= 6'h26,
+		opnor	= 6'h27,
+		opslt	= 6'h2a,
+		opsltu	= 6'h2b,
+		opnop	= 6'h00;
+		
+	wire [5:0]OP 		= IFDE_ins[31:26];
+	wire [5:0]ALU_OP 	= IFDE_ins[5:0];
+	
+	reg 			cntEX_ALUsrc;
+	reg		[3:0]	cntEX_ALUop;
+	reg				cntME_eqneq;
+	reg				cntME_branch_1;
+	reg				cntME_WRTdata_1;
+	reg				cntME_Readdata_1;
+	reg				cntME_eqneq_1;
+	reg				cntWB_WRTrf_1;
+	reg				cntWB_MemtoReg_1;
+	reg				cntWB_WRTrf_2;
+	reg				cntWB_MemtoReg_2;
+	reg				cntME_branch;
+	reg				cntME_WRTdata;
+	reg				cntME_Readdata;
+	reg				cntWB_WRTrf;
+	reg				cntWB_MemtoReg;
+	
+	//=====================================
+	//controller signal assigner
+	always @(*) begin
+		casex ({reset,OP})
+			{1'b1,6'hxx}: begin
+				Regdst 			= 1'bx;
+				SENZE 			= 1'bx;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'bx;
+				cntEX_ALUop		= 4'hx;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b0;
+				cntWB_MemtoReg	= 1'bx;
+			end
+			{1'b0,R_type}: begin
+				Regdst 			= 1'b1;
+				SENZE 			= 1'bx;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b0;
+				case (ALU_OP)
+					opand  	: cntEX_ALUop = `AND;
+					opor  	: cntEX_ALUop = `OR ;
+					opaddu	: cntEX_ALUop = `ADD;
+					opsubu	: cntEX_ALUop = `SUB;
+					opsltu 	: cntEX_ALUop = `SLTU;
+					opslt	: cntEX_ALUop = `SLT;
+					opnor  	: cntEX_ALUop = `NOR;
+					opxor	: cntEX_ALUop = `XOR;
+					//other R_type opcodes here
+					default	: cntEX_ALUop = 4'hx;
+				endcase
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b1;
+				cntWB_MemtoReg	= 1'b1;
+				if (ALU_OP == opnop) begin
+					Regdst 			= 1'bx;
+					SENZE 			= 1'bx;
+					PCjump			= 1'b0;
+					cntEX_ALUsrc	= 1'bx;
+					cntEX_ALUop		= 4'hx;
+					cntME_branch	= 1'b0;
+					cntME_WRTdata	= 1'b0;
+					cntME_Readdata	= 1'b0;
+					cntME_eqneq		= 1'bx;
+					cntWB_WRTrf		= 1'b0;
+					cntWB_MemtoReg	= 1'bx;
+				end
+			end
+			{1'b0,j}:	begin
+				Regdst 			= 1'bx;
+				SENZE 			= 1'bx;
+				PCjump			= 1'b1;
+				cntEX_ALUsrc	= 1'bx;
+				cntEX_ALUop		= 4'hx;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b0;
+				cntWB_MemtoReg	= 1'bx;
+			end
+			{1'b0,beq}: begin
+				Regdst 			= 1'bx;
+				SENZE 			= 1'bx;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b0;
+				cntEX_ALUop		= `SUB;
+				cntME_branch	= 1'b1;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'b1;
+				cntWB_WRTrf		= 1'b0;
+				cntWB_MemtoReg	= 1'bx;
+			end
+			
+			{1'b0,bne}: begin
+				Regdst 			= 1'bx;
+				SENZE 			= 1'bx;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b0;
+				cntEX_ALUop		= `SUB;
+				cntME_branch	= 1'b1;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'b0;
+				cntWB_WRTrf		= 1'b0;
+				cntWB_MemtoReg	= 1'bx;
+			end
+			{1'b0,lw}: begin
+				Regdst 			= 1'b0;
+				SENZE 			= 1'b1;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b1;
+				cntEX_ALUop		= `ADD;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b1;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b1;
+				cntWB_MemtoReg	= 1'b0;
+			end
+			{1'b0,sw}: begin
+				Regdst 			= 1'bx;
+				SENZE 			= 1'b1;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b1;
+				cntEX_ALUop		= `ADD;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b1;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b0;
+				cntWB_MemtoReg	= 1'bx;
+			end
+			{1'b0,addiu}: begin
+				Regdst 			= 1'b0;
+				SENZE 			= 1'b0;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b1;
+				cntEX_ALUop		= `ADD;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b1;
+				cntWB_MemtoReg	= 1'b1;
+			end
+			{1'b0,slti}: begin
+				Regdst 			= 1'b0;
+				SENZE 			= 1'b1;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b1;
+				cntEX_ALUop		= `SLT;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b1;
+				cntWB_MemtoReg	= 1'b1;
+			end
+			{1'b0,sltiu}: begin
+				Regdst 			= 1'b0;
+				SENZE 			= 1'b0;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b1;
+				cntEX_ALUop		= `SLTU;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b1;
+				cntWB_MemtoReg	= 1'b1;
+			end
+			{1'b0,andi}: begin
+				Regdst 			= 1'b0;
+				SENZE 			= 1'b0;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b1;
+				cntEX_ALUop		= `AND;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b1;
+				cntWB_MemtoReg	= 1'b1;
+			end
+			{1'b0,ori}: begin
+				Regdst 			= 1'b0;
+				SENZE 			= 1'b0;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b1;
+				cntEX_ALUop		= `OR;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b1;
+				cntWB_MemtoReg	= 1'b1;
+			end
+			{1'b0,xori}: begin
+				Regdst 			= 1'b0;
+				SENZE 			= 1'b0;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b1;
+				cntEX_ALUop		= `XOR;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b1;
+				cntWB_MemtoReg	= 1'b1;
+			end
+			{1'b0,lui}: begin
+				Regdst 			= 1'b0;
+				SENZE 			= 1'b0;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'b1;
+				cntEX_ALUop		= `LUI;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b1;
+				cntWB_MemtoReg	= 1'b1;
+			end		
+			//other opcodes here
+			default: begin
+				Regdst 			= 1'bx;
+				SENZE 			= 1'bx;
+				PCjump			= 1'b0;
+				cntEX_ALUsrc	= 1'bx;
+				cntEX_ALUop		= 4'hx;
+				cntME_branch	= 1'b0;
+				cntME_WRTdata	= 1'b0;
+				cntME_Readdata	= 1'b0;
+				cntME_eqneq		= 1'bx;
+				cntWB_WRTrf		= 1'b0;
+				cntWB_MemtoReg	= 1'bx;
+			end
+		endcase	//endcase(OP)
+	end
+	
+	//=====================================
+	//controller pipelines
+	always @(*) begin
+		case (stall)
+			1'b0:	begin
+				cntME_WRTdata_line 	= cntME_WRTdata;
+				cntME_Readdata_line = cntME_Readdata;
+				cntWB_WRTrf_line 	= cntWB_WRTrf;
+			end
+			1'b1:	begin
+				cntME_WRTdata_line 	= 0;
+				cntME_Readdata_line = 0;
+				cntWB_WRTrf_line 	= 0;
+			end
+		endcase
+	end
+	always @(posedge clk) begin
+		casex ({reset,PCsrc})
+			2'b1x: begin
+				//insert in EX
+				ALUsrc				<=	0;
+				ALUop				<=	0;
+				PCjump				<=	0;
+				cntME_branch_1		<=	0;
+				cntME_WRTdata_1		<=	0;
+				cntME_Readdata_1	<=	0;	
+				cntME_eqneq_1		<=  0;
+				cntWB_WRTrf_1		<=	0;
+				cntWB_MemtoReg_1	<=	0;
+				//insert in ME
+				branch				<=	0;
+				WRTdata				<=	0;
+				Readdata			<=	0;
+				eqneq				<=	0;
+				cntWB_WRTrf_2		<=	0;
+				cntWB_MemtoReg_2	<=	0;
+				//insert in WB
+				WRTrf				<=	0;
+				MemtoReg			<=	0;		
+			end
+			2'b00: begin
+				//insert in EX
+				ALUsrc				<=	cntEX_ALUsrc;
+				ALUop				<=	cntEX_ALUop;
+				cntME_branch_1		<=	cntME_branch;
+				cntME_WRTdata_1		<=	cntME_WRTdata_line;
+				cntME_Readdata_1	<=	cntME_Readdata_line;	
+				cntME_eqneq_1		<=  cntME_eqneq;
+				cntWB_WRTrf_1		<=	cntWB_WRTrf_line;
+				cntWB_MemtoReg_1	<=	cntWB_MemtoReg;
+				//insert in ME
+				branch				<=	cntME_branch_1;
+				WRTdata				<=	cntME_WRTdata_1;
+				Readdata			<=	cntME_Readdata_1;
+				eqneq				<=	cntME_eqneq_1;
+				cntWB_WRTrf_2		<=	cntWB_WRTrf_1;
+				cntWB_MemtoReg_2	<=	cntWB_MemtoReg_1;
+				//insert in WB
+				WRTrf				<=	cntWB_WRTrf_2;
+				MemtoReg			<=	cntWB_MemtoReg_2;
+			end
+			2'b01: begin
+				//insert in EX
+				ALUsrc				<=	cntEX_ALUsrc;
+				ALUop				<=	cntEX_ALUop;
+				cntME_branch_1		<=	cntME_branch;
+				cntME_WRTdata_1		<=	0
+				cntME_Readdata_1	<=	0;	
+				cntME_eqneq_1		<=  cntME_eqneq;
+				cntWB_WRTrf_1		<=	0;
+				cntWB_MemtoReg_1	<=	cntWB_MemtoReg;
+				//insert in ME
+				branch				<=	cntME_branch_1;
+				WRTdata				<=	0;
+				Readdata			<=	0;
+				eqneq				<=	cntME_eqneq_1;
+				cntWB_WRTrf_2		<=	0;
+				cntWB_MemtoReg_2	<=	cntWB_MemtoReg_1;
+				//insert in WB
+				WRTrf				<=	cntWB_WRTrf_2;
+				MemtoReg			<=	cntWB_MemtoReg_2;		
+			end
+		endcase
+		
+	end
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^CONTROLLER_END^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^FORWARDING UNITS_START^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	
+	reg		[4:0]	DEEX_Rs;
+	reg		[4:0]	DEEX_Rt;
+	reg		[4:0]	EXME_Rt;
+	reg				MEWB_Readdata;
+	//=====================================
+	//forwarding unit in (EXE)
+	//register pipeline for Rs and Rt
+	always @(posedge clk) begin
+		DEEX_Rs	<= IFDE_ins[25:21];
+		DEEX_Rt	<= IFDE_ins[20:16];
+	end
+	//forwarding unit
+	always @(*) begin
+		forwardA = 2'b00;
+		if (WRTrf && MEWB_WR != 0 && MEWB_WR == DEEX_Rs)
+			forwardA = 2'b10;	
+		if (cntWB_WRTrf_2 && EXME_WR != 0 && EXME_WR == DEEX_Rs)
+			forwardA = 2'b01;
+	end
+	always @(*) begin
+		forwardB = 2'b00;
+		if (WRTrf && MEWB_WR != 0 && MEWB_WR == DEEX_Rt)
+			forwardB = 2'b10;	
+		if (cntWB_WRTrf_2 && EXME_WR != 0 && EXME_WR == DEEX_Rt)
+			forwardB = 2'b01;
+	end
+	
+	//=====================================
+	//forwarding unit in (ME) for lw sw
+	//register pipeline for Rt and readdata
+	always @(posedge clk) begin
+		EXME_Rt			<= DEEX_Rt;
+		MEWB_Readdata 	<= Readdata;
+	end
+	//forwarding unit
+	always @(*) begin
+		forwardMem = 1'b0;
+		if (MEWB_Readdata && WRTdata && MEWB_WR!=0 && MEWB_WR == EXME_Rt)
+			forwardMem = 1'b1;
+	end
+	
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^FORWARDING UNITS_END^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^HAZARDS DETECTION_START^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+	//Hazard for lw... must insert a bubble if next ins. is not sw and is dependent to lw
+	always @(*) begin
+		stall 	= 1'b0;
+		WRTPC 	= 1'b1;
+		WRTIFDE	= 1'b1;
+		if (cntME_Readdata_1 && !cntME_WRTdata && (DEEX_Rt==IFDE_ins[25:21] || DEEX_Rt==IFDE_ins[20:16])) begin
+			stall 	= 1'b1;
+			WRTPC 	= 1'b0;
+			WRTIFDE	= 1'b0;
+		end
+	end
+	
+	//^^^^^^^^^^^^^^^^^^^^^^^^^^HAZARDS DETECTION_END^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+endmodule
+
+
+
+
+
+//-----------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------
+//asynchronous memory
+module async_mem(
+	input clk,
+	input write,
+	input read,
+	input [31:0] address,
+	input [31:0] write_data,
+	output [31:0] read_data
+);
+
+
+	reg [31:0] mem_data [0:1023];
+	
+	assign read_data = read ? mem_data[ address[31:2] ] : 32'bx;
+
+
+	always @(posedge clk)
+		if(write) begin
+			mem_data[ address[31:2] ] <= #1 write_data;
+			
+			`ifdef DEBUG_MEM
+				$display("[%x] = %x", address, write_data);
+			`endif
+		end
+
+endmodule
+//-----------------------------------------------------------------------------------------------------------
+//register file with bypassing data
+
+module reg_file(
+	input clk,
+	input write,
+	input [4:0] WR,
+	input [31:0] WD,
+	input [4:0] RR1,
+	input [4:0] RR2,
+	output [31:0] RD1,
+	output [31:0] RD2
+);
+
+	reg [31:0] reg_data [0:31];
+
+	assign RD1 = ( WR==RR1 && write && WR!=0 )? WD :reg_data[ RR1 ];
+
+	assign RD2 = ( WR==RR2 && write && WR!=0 )? WD : reg_data[ RR2 ];
+
+	always @(posedge clk) begin
+		if(write) begin
+			reg_data[ WR ] <= #1 WD;
+
+			`ifdef DEBUG_RF
+			if(WR)
+				$display("$%0d = %x", WR, WD);
+			`endif
+
+		end
+		reg_data[0] <= #1 32'h00000000;
+	end
+
+endmodule
+//-----------------------------------------------------------------------------------------------------------
+//my ALU
+module my_alu(
+   input 			[31:0]	aluA,
+   input 			[31:0]	aluB,
+   input 			[3:0]	aluOp,
+   output	reg 	[31:0]	aluResult,
+   output					ALUZero
+);
+	wire [32:0]aluAs = $signed(aluA);
+	wire [32:0]aluBs = $signed(aluB);
+	
+
+   always @(*)
+      case(aluOp)
+		 `AND 	: aluResult = aluA & aluB;
+		 `OR  	: aluResult = aluA | aluB;
+         `ADD 	: aluResult = aluA + aluB;           
+         `SUB 	: aluResult = aluA - aluB;      
+         `SLTU	: aluResult = (aluA<aluB)?32'h00000001:32'h00000000;
+         `NOR 	: aluResult = ~(aluA | aluB);
+		 `XOR 	: aluResult = aluA ^ aluB;
+		 `SLT 	: aluResult = (aluAs<aluBs)?32'h00000001:32'h00000000;
+		 `LUI 	: aluResult = {aluB[15:0],{16{1'b0}}};
+		 `PASS	: aluResult = aluA;
+		  default:	aluResult=32'hxxxxxxxx;
+      endcase
+
+   assign ALUZero = !(|aluResult);
+
+endmodule
+//-----------------------------------------------------------------------------------------------------------
+//Booth multiplier (34bits)
+module signed_multiplier (
+		clk,  		//system clk 
+		start,		//all inputs are valid for starting
+		a,		  	//operand
+		b,		  	//operand
+		s,			//result
+		endm		//indicate end of mul
+	);
+	//parameters and definitions
+	input             clk;
+	input             start;
+	input      [33:0] a;
+	input      [33:0] b;
+	output reg [67:0] s;
+	output reg		  endm;
+	
+	//vars
+	reg    [33:0]   A;
+	reg    [68:0]   P;
+	reg    [35:0]   ai;
+	wire   [35:0]   bi;
+	reg             ci;
+	wire   [35:0]   so;
+	reg    [4:0]    counter;   //for counting and registering output
+	
+	
+	//**CODE	
+	//
+	always @(posedge clk)
+	begin	
+		if (start)	//load registers
+		begin	
+			A<=a;
+			P[34:1]<=b;
+			P[0]<=1'b0;
+			P[68:35]<='b0;	
+			counter <=5'b0000;
+			endm<=1'b0;			
+			end
+		else
+		begin		//two shifts - save result of adder
+			P<=(P>>2);
+			P[68:33]<=so[35:0];
+			counter <= counter + 1'b1;
+			endm<=1'b0;	
+			if (counter==5'd17) begin
+			   s[67:0]<=P[68:1];
+			   endm<=1'b1;
+			end
+		end
+	end
+	
+  //adder
+	full_adder adder(.ai(ai), .bi(bi), .ci(ci), .so(so), .co());
+	assign bi[33:0]=P[68:35];
+	assign bi[35]=P[68];
+	assign bi[34]=P[68];
+		
+	//PP generator (deretemins ci and ai) (booth encoding)
+	always @(P[2:0],A)
+	begin
+		case(P[2:0])
+			3'b000:	begin	//0
+					ai=36'b0;
+					ci=1'b0;		end
+			3'b001:	begin	//1
+					ai[33:0]=A;
+					ai[34]=A[33];
+					ai[35]=A[33];
+					ci=1'b0;		end	
+			3'b010:	begin	//1
+					ai[33:0]=A;
+					ai[34]=A[33];
+					ai[35]=A[33];
+					ci=1'b0;		end	
+			3'b011:	begin	//2
+					ai[34:0]=A<<1;
+					ai[35]=ai[34];	
+					ci=1'b0;		end
+			3'b100:	begin	//-2
+					ai[34:0]=~(A<<1);
+					ai[35]=ai[34];
+					ci=1'b1;		end
+			3'b101:	begin	//-1
+					ai[33:0]=~A;
+					ai[34]=ai[33];
+					ai[35]=ai[33];
+					ci=1'b1;		end
+			3'b110:	begin	//-1
+					ai[33:0]=~A;
+					ai[34]=ai[33];
+					ai[35]=ai[33];
+					ci=1'b1;		end
+			3'b111:	begin	//0
+					ai=36'b0;
+					ci=1'b0;		end
+		endcase
+	end	
+
+endmodule
+
+//full adder 34bit
+module full_adder(
+        input [35:0] ai,
+        input [35:0] bi,
+        input ci,
+        output [35:0] so,
+        output co
+    );
+        assign {co, so} = ai + bi + ci;
+endmodule	
+//-----------------------------------------------------------------------------------------------------------

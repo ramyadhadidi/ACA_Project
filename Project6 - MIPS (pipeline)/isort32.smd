@@ -1,0 +1,9 @@
+	addiu	$1, $0, 255
+	addiu	$2, $0, 254
+	bne $1,$2, hell
+	addu $3,$2,$1
+	or $4,$2,$1
+	xor $5,$2,$1
+hell:	addu $6,$2,$1
+	addu $7,$2,$1
+	addu $8,$2,$1

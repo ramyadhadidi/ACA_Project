@@ -1,0 +1,40 @@
+# Reading D:/ZPrograms/altera/90/modelsim_ase/tcl/vsim/pref.tcl 
+# OpenFile {D:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_MIPS.mpf} 
+# Loading project single_cycle_MIPS
+# Compile of single_cycle_mips.v failed with 1 errors.
+# Compile of single_cycle_mips__tb.v was successful.
+# 2 compiles, 1 failed with 1 error. 
+# Compile of single_cycle_mips.v failed with 1 errors.
+# Compile of single_cycle_mips__tb.v was successful.
+# 2 compiles, 1 failed with 1 error. 
+# Compile of single_cycle_mips.v failed with 1 errors.
+# Compile of single_cycle_mips.v failed with 1 errors.
+# Compile of single_cycle_mips.v was successful.
+# Compile of single_cycle_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim -gui work.multi_cycle_mips__tb
+# vsim -gui work.multi_cycle_mips__tb 
+# Loading work.multi_cycle_mips__tb
+# Loading work.single_cycle_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+# ** Error: (vsim-3043) D:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips__tb.v(23): Unresolved reference to 'mem' in uut.mem.
+#         Region: /multi_cycle_mips__tb
+# Error loading design
+# Compile of single_cycle_mips.v was successful.
+# Compile of single_cycle_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim -gui work.single_cycle_mips__tb
+# vsim -gui work.single_cycle_mips__tb 
+# Loading work.single_cycle_mips__tb
+# Loading work.single_cycle_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run -all
+# ** Warning: (vsim-7) Failed to open readmem file "isort32.hex" in read mode.
+# No such file or directory. (errno = ENOENT)    : D:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips__tb.v(21)
+#    Time: 0 ns  Iteration: 0  Instance: /single_cycle_mips__tb
+# Break key hit 
+# Break in Module async_mem at D:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips.v line 382

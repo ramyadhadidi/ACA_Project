@@ -1,0 +1,89 @@
+m255
+K3
+13
+cModel Technology
+dD:\ZPrograms\altera\90\modelsim_ase\examples
+vasync_mem
+IN;@KE0M2OTf7oMN26IDX93
+VA0d6oo[2b?V]I<[286Y2j2
+Z0 dD:\My Desktop\MIPS\single_cycle_MIPS
+Z1 w1354630839
+Z2 8D:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips.v
+Z3 FD:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips.v
+L0 369
+Z4 OV;L;6.4a;39
+r1
+31
+Z5 o-work work -nocovercells -O0
+!s100 aeO9ReTLaP`U>I7YFC<?O2
+!s85 0
+vmulti_cycle_mips__tb
+!s100 :1O4U4b3HPFUE;ihWZBV;2
+I?<X[>`3DaSWXMe=Ki77=U1
+Vz6AUcK]L<JbOko:QLD_R43
+Z6 dD:\My Desktop\MIPS\single_cycle_MIPS
+w1354630885
+Z7 8D:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips__tb.v
+Z8 FD:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips__tb.v
+L0 4
+R4
+r1
+!s85 0
+31
+R5
+vmy_alu
+I5i2Bzz7]KiYoYz^ehdJXo1
+V=lSDkk5?]KAhU:l3;4?W01
+R6
+R1
+R2
+R3
+L0 428
+R4
+r1
+31
+R5
+!s100 VZIgTh>:>=k69N:@c;UAP1
+!s85 0
+vreg_file
+I<JUX=`J;ooDD2TW]oZMR`0
+VhS7TEIC^ekO`FilNgEd2J3
+R6
+R1
+R2
+R3
+L0 395
+R4
+r1
+31
+R5
+!s100 Z<NT3AlKea4`148;^bVmI3
+!s85 0
+vsingle_cycle_mips
+IdH_l^zXlaAgHJAH>AE84L1
+VJ[;h8iSAjjHNOE=RBz9D22
+R6
+R1
+R2
+R3
+L0 22
+R4
+r1
+31
+R5
+!s100 QCaM_hGJUODZh?Jh`QAKN2
+!s85 0
+vsingle_cycle_mips__tb
+I>74P`C^?T<Le19[R;ObM=0
+VWa0lzC4D<16[k5FM_7W7O1
+R6
+w1353687906
+R7
+R8
+L0 4
+R4
+r1
+31
+R5
+!s100 lDF0?Jf9z[1mL7ETdEe:P2
+!s85 0

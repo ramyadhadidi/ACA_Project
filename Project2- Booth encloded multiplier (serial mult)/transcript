@@ -1,0 +1,25 @@
+# Reading D:/ZPrograms/altera/90/modelsim_ase/tcl/vsim/pref.tcl 
+# OpenFile {D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project2- Booth encloded multiplier (serial mult)/booth.mpf} 
+# Loading project booth
+# Compile of multiplier__tb.v was successful.
+# Compile of signed_multiplier.v was successful.
+# 2 compiles, 0 failed with no errors. 
+# Compile of multiplier__tb.v failed with 1 errors.
+# Compile of signed_multiplier.v was successful.
+# 2 compiles, 1 failed with 1 error. 
+# Compile of multiplier__tb.v was successful.
+# Compile of signed_multiplier.v was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim -gui work.multiplier__tb
+# vsim -gui work.multiplier__tb 
+# Loading work.multiplier__tb
+# Loading work.signed_multiplier
+# Loading work.full_adder
+run
+# ACA Project2 
+#  Ramyad Hadidi-88109971
+restart
+add wave -r sim:/multiplier__tb/*
+run
+# ACA Project2 
+#  Ramyad Hadidi-88109971

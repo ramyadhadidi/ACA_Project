@@ -1,0 +1,18 @@
+{D:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips.v} {1 {vlog -work work -nocovercells {D:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips.v}
+Model Technology ModelSim ALTERA vlog 6.4a Compiler 2008.08 Oct 22 2008
+-- Compiling module single_cycle_mips
+-- Compiling module async_mem
+-- Compiling module reg_file
+-- Compiling module my_alu
+
+Top level modules:
+	single_cycle_mips
+
+} {} {}} {D:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips__tb.v} {1 {vlog -work work -nocovercells {D:/My Desktop/MIPS/single_cycle_MIPS/single_cycle_mips__tb.v}
+Model Technology ModelSim ALTERA vlog 6.4a Compiler 2008.08 Oct 22 2008
+-- Compiling module multi_cycle_mips__tb
+
+Top level modules:
+	multi_cycle_mips__tb
+
+} {} {}}

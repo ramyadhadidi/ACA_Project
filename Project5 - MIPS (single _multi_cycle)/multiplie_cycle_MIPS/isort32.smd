@@ -1,0 +1,39 @@
+	addiu $s0, $zero, 65059
+	lui $s1, 36387
+	mult $s0, $s1
+	mflo $t0
+	mfhi $t1
+	multu $s0, $s1
+	mflo $t2
+	mfhi $t3
+	addiu $s0, $zero, 85
+	addiu $s1, $zero, 254
+	addu $s2, $s1, $s0
+	and $s3, $s1, $s0
+	or $s4, $s1, $s0
+	addiu $s1, $zero, 60
+	jalr $s1,$t4
+	xor $s5, $s2, $s4
+	nor $s6, $s5, $s1
+	xori $s6, $s5, 0x3245
+	slt $t1, $s1, $s0
+	sltu $t2, $s1, $s0
+	lui $s1, 65535
+	lui $s0, 32767
+	slti $t3,$s1, 0xFF
+	sltiu $t3,$s1, 0xF321
+	subu $t5,$s1,$s6
+	beq $t5,$t4,A
+	slt $t1, $s1, $s0
+	sltu $t1, $s1, $s0
+	bne $s1, $s2, A
+	j A
+A:	addiu $s0, $zero, 0
+	sw $s6, 0($s0)
+	lw $t5, 0($zero)
+	addiu $s2, $zero, 68
+	addiu $t1, $zero, 9029
+	sw $t1, 132($s2)
+	lw $s6, 132($s2)
+	jr $s2
+	jal A

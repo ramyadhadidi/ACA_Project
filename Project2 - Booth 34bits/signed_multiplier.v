@@ -1,0 +1,117 @@
+/*serial signed multiplier
+using booth encoding (radix4)
+ACA course Oct 2012
+Ramyad Hadidi 88109971
+*/
+
+`timescale 1ns/1ns
+
+module signed_multiplier
+	(
+		clk,  		//system clk 
+		start,		//all inputs are valid for starting
+		a,		  	//operand
+		b,		  	//operand
+		s			//result
+	);
+	//parameters and definitions
+	input             clk;
+	input             start;
+	input      [33:0] a;
+	input      [33:0] b;
+	output reg [67:0] s;
+	
+	//vars
+	reg    [33:0]   A;
+	reg    [68:0]   P;
+	reg    [35:0]   ai;
+	wire   [35:0]   bi;
+	reg             ci;
+	wire   [35:0]   so;
+	reg    [4:0]    counter;   //for counting and registering output
+	
+	
+	//**CODE	
+	//
+	always @(posedge clk)
+	begin	
+		if (start)	//load registers
+		begin	
+			A<=a;
+			P[34:1]<=b;
+			P[0]<=1'b0;
+			P[68:35]<='b0;	
+			counter <=5'b0000; 
+			end
+		else
+		begin		//two shifts - save result of adder
+			P<=(P>>2);
+			P[68:33]<=so[35:0];
+			counter <= counter + 1'b1;
+			if (counter==5'd17)
+			   s[67:0]<=P[68:1];
+		end
+	end
+	
+  //adder
+	full_adder adder(.ai(ai), .bi(bi), .ci(ci), .so(so), .co());
+	assign bi[33:0]=P[68:35];
+	assign bi[35]=P[68];
+	assign bi[34]=P[68];
+		
+	//PP generator (deretemins ci and ai) (booth encoding)
+	always @(P[2:0],A)
+	begin
+		case(P[2:0])
+			3'b000:	begin	//0
+					ai=36'b0;
+					ci=1'b0;		end
+			3'b001:	begin	//1
+					ai[33:0]=A;
+					ai[34]=A[33];
+					ai[35]=A[33];
+					ci=1'b0;		end	
+			3'b010:	begin	//1
+					ai[33:0]=A;
+					ai[34]=A[33];
+					ai[35]=A[33];
+					ci=1'b0;		end	
+			3'b011:	begin	//2
+					ai[34:0]=A<<1;
+					ai[35]=ai[34];	
+					ci=1'b0;		end
+			3'b100:	begin	//-2
+					ai[34:0]=~(A<<1);
+					ai[35]=ai[34];
+					ci=1'b1;		end
+			3'b101:	begin	//-1
+					ai[33:0]=~A;
+					ai[34]=ai[33];
+					ai[35]=ai[33];
+					ci=1'b1;		end
+			3'b110:	begin	//-1
+					ai[33:0]=~A;
+					ai[34]=ai[33];
+					ai[35]=ai[33];
+					ci=1'b1;		end
+			3'b111:	begin	//0
+					ai=36'b0;
+					ci=1'b0;		end
+		endcase
+	end	
+
+endmodule
+
+//----------------------------------------------------
+//full adder 34bit
+module full_adder(
+        input [35:0] ai,
+        input [35:0] bi,
+        input ci,
+        output [35:0] so,
+        output co
+    );
+        assign {co, so} = ai + bi + ci;
+endmodule
+
+	

@@ -1,0 +1,47 @@
+
+`timescale 1ns/1ns
+
+module pipeline_mips__tb;
+
+	reg clk = 1;
+	reg [31:0] counter;
+	always @(clk)
+		clk <= #5 ~clk;
+
+	reg reset;
+	initial begin
+		reset = 1;
+		counter = 0;
+		@(posedge clk);
+		@(posedge clk);
+		#1;
+		reset = 0;
+	end
+
+	initial
+		$readmemh("isort32.hex", uut.InsMem.mem_data);
+
+	parameter end_pc = 32'h30;
+
+	/*integer i;
+	always @(uut.PC) begin
+	  $display("counter = %x", counter);
+	  counter=counter+1;
+		if(uut.PC == end_pc || uut.PC == 32'h20) begin
+			for(i=0; i<96; i=i+1) begin
+				//$write("%x ", uut.DataMem.mem_data[12+i]);
+				if(((i+1) % 16) == 0)
+					$write("\n");
+			end
+			//$stop;
+		end
+	end*/
+
+	pipeline_mips uut(
+		.clk(clk),
+		.reset(reset)
+	);
+
+
+endmodule
+

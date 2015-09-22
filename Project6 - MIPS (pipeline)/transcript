@@ -1,0 +1,730 @@
+# Reading D:/ZPrograms/altera/90/modelsim_ase/tcl/vsim/pref.tcl 
+# OpenFile {D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_MIPS.mpf} 
+# Loading project pipeline_MIPS
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim -gui work.pipeline_mips__tb
+# vsim -gui work.pipeline_mips__tb 
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+# ** Error: (vsim-3043) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips__tb.v(23): Unresolved reference to 'mem' in uut.mem.
+#         Region: /pipeline_mips__tb
+# ** Error: (vsim-3043) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips__tb.v(28): Unresolved reference to 'pc' in uut.pc.
+#         Region: /pipeline_mips__tb
+# ** Warning: (vsim-3015) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips.v(126): [PCDPC] - Port size (5 or 5) does not match connection size (32) for port 'WR'.
+#         Region: /pipeline_mips__tb/uut/rf
+# ** Warning: (vsim-3015) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips.v(126): [PCDPC] - Port size (5 or 5) does not match connection size (4) for port 'RR1'.
+#         Region: /pipeline_mips__tb/uut/rf
+# Error loading design
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim -gui work.pipeline_mips
+# vsim -gui work.pipeline_mips 
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+# ** Warning: (vsim-3015) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips.v(126): [PCDPC] - Port size (5 or 5) does not match connection size (32) for port 'WR'.
+#         Region: /pipeline_mips/rf
+# ** Warning: (vsim-3015) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips.v(126): [PCDPC] - Port size (5 or 5) does not match connection size (4) for port 'RR1'.
+#         Region: /pipeline_mips/rf
+quit -sim
+vsim -gui work.pipeline_mips__tb
+# vsim -gui work.pipeline_mips__tb 
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+# ** Error: (vsim-3043) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips__tb.v(28): Unresolved reference to 'pc' in uut.pc.
+#         Region: /pipeline_mips__tb
+# ** Warning: (vsim-3015) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips.v(126): [PCDPC] - Port size (5 or 5) does not match connection size (32) for port 'WR'.
+#         Region: /pipeline_mips__tb/uut/rf
+# ** Warning: (vsim-3015) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips.v(126): [PCDPC] - Port size (5 or 5) does not match connection size (4) for port 'RR1'.
+#         Region: /pipeline_mips__tb/uut/rf
+# Error loading design
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim -gui work.pipeline_mips__tb
+# vsim -gui work.pipeline_mips__tb 
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+# ** Warning: (vsim-3015) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips.v(126): [PCDPC] - Port size (5 or 5) does not match connection size (32) for port 'WR'.
+#         Region: /pipeline_mips__tb/uut/rf
+# ** Warning: (vsim-3015) D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips.v(126): [PCDPC] - Port size (5 or 5) does not match connection size (4) for port 'RR1'.
+#         Region: /pipeline_mips__tb/uut/rf
+quit -sim
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim -gui work.pipeline_mips__tb
+# vsim -gui work.pipeline_mips__tb 
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+add wave -r sim:/pipeline_mips__tb/*
+run
+run
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# Break in Module pipeline_mips__tb at D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips__tb.v line 37
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+run
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+run
+run
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+run
+run
+run
+run
+run
+run
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = xxxxxxxx
+# $1 = xxxxxxxx
+# $1 = xxxxxxxx
+# $1 = 00000028
+# $1 = 00000028
+# $1 = 00000028
+restart
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = xxxxxxxx
+# $1 = xxxxxxxx
+# $1 = xxxxxxxx
+# $1 = 00000028
+# $1 = 00000029
+# $1 = 0000002a
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim -gui work.pipeline_mips__tb
+# vsim -gui work.pipeline_mips__tb 
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+run
+run
+run
+run
+run
+run
+restart
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+add wave -r sim:/pipeline_mips__tb/*
+run
+# $1 = 00000028
+# $1 = 00000028
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+run
+run
+run
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = xxxxxxxx
+# $1 = xxxxxxxx
+run
+run
+run
+run
+run
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+vsim -gui work.pipeline_mips__tb
+# vsim -gui work.pipeline_mips__tb 
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+run
+run
+restart
+add wave -r sim:/pipeline_mips__tb/*
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+run
+# $1 = 00000028
+# $1 = 00000028
+run
+run
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+run
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+run
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+run
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+run
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+run
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+run
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+run
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+run
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+run
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+run
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# $1 = 00000029
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+run
+run
+run
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+# $1 = 00000029
+# $1 = 0000002a
+# $1 = 0000002b
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+run
+# $1 = 0000002c
+# $1 = 0000002d
+# $1 = 0000002e
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+run
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+run
+run
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+run
+run
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000028
+# $1 = 00000029
+# $1 = 0000002a
+# $1 = 0000002b
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000029
+# $1 = xxxxxxxx
+# $1 = 0000002b
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+run
+# $1 = 0000002c
+# $1 = 0000002d
+# $1 = 0000002e
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+# xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 
+restart
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v failed with 1 errors.
+# 2 compiles, 1 failed with 1 error. 
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000029
+# $1 = xxxxxxxx
+# $1 = 0000002b
+run
+# $1 = 0000002c
+# $1 = 0000002d
+# $1 = 0000002e
+run
+# WARNING: No extended dataflow License exists
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000029
+# $1 = 0000002a
+# $1 = 0000002b
+run
+# $1 = 0000002c
+# $1 = 0000002d
+# $1 = 0000002e
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $1 = 00000029
+# $1 = 0000002a
+# $2 = 00000050
+restart
+run -all
+# $1 = 00000001
+# $1 = 00000001
+# $1 = 00000001
+# $2 = 00000001
+# Break key hit 
+# Simulation stop requested.
+restart
+run
+# $1 = 00000028
+# $1 = 00000001
+# $1 = 00000001
+# $2 = 00000000
+restart
+run
+# $1 = 01a70000
+restart
+run
+# $1 = 00000028
+# $2 = 0000002d
+run
+# $3 = 00000028
+# $4 = 00000005
+# $5 = 0000002d
+# $5 = 00000055
+# $6 = 00000005
+run
+run
+restart
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $2 = 0000002d
+run
+# $3 = 00000028
+# $4 = 00000005
+# $5 = 0000002d
+# $5 = 00000055
+# $6 = 00000005
+run
+restart
+run
+# $1 = 00000028
+# $2 = 0000002d
+run
+# $3 = 00000028
+# $4 = 00000005
+# $5 = 0000002d
+# $9 = 0000002d
+# $9 = 0000002e
+# $9 = 0000002f
+# $9 = 00000030
+run
+run
+run
+restart
+run
+# $1 = 00000028
+# $2 = 00000028
+run
+# $3 = 00000028
+# $4 = 00000000
+# $5 = 00000028
+# $9 = 0000002d
+# $9 = 0000002e
+# $9 = 0000002f
+# $9 = 00000030
+# Compile of pipeline_mips.v failed with 1 errors.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 1 failed with 1 error. 
+# Compile of pipeline_mips.v was successful.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 0 failed with no errors. 
+restart
+# Loading work.pipeline_mips__tb
+# Loading work.pipeline_mips
+# Loading work.async_mem
+# Loading work.reg_file
+# Loading work.my_alu
+run
+# $1 = 00000028
+# $2 = 00000028
+run
+# $3 = 00000028
+# $4 = 00000000
+# $5 = 00000028
+# $9 = 0000002d
+# $9 = 0000002e
+# $9 = 0000002f
+# $9 = 00000030
+restart
+run
+# $1 = 00000028
+# $2 = 00000028
+run
+# $3 = 00000028
+# $9 = 0000002d
+# $9 = 0000002e
+# $9 = 0000002f
+# $9 = 00000030
+# Compile of pipeline_mips.v failed with 1 errors.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 1 failed with 1 error. 
+# Compile of pipeline_mips.v failed with 1 errors.
+# Compile of pipeline_mips__tb.v was successful.
+# 2 compiles, 1 failed with 1 error. 

@@ -1,0 +1,103 @@
+m255
+K3
+13
+cModel Technology
+dD:\My Desktop\ee\9.Term7-911\ACA\Projects\Project5 - MIPS (single _multi_cycle)\multiplie_cycle_MIPS
+vasync_mem
+IRnJEUb>o`B4f;hC75hzK:2
+V@:^b?j6Y3mFLzd;S1e<ZB2
+Z0 dD:\My Desktop\ee\9.Term7-911\ACA\Projects\Project6 - MIPS (pipeline)
+Z1 w1357123584
+Z2 8D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips.v
+Z3 FD:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips.v
+L0 736
+Z4 OV;L;6.4a;39
+r1
+31
+Z5 o-work work -nocovercells -O0
+!s100 m:_KD9N77RFji50a6T0_V2
+!s85 0
+vfull_adder
+IU@5iA66Fj2]cF_6@<[aTj0
+VK:YUAC1W?MVFZb8>OW=VA3
+Z6 dD:\My Desktop\ee\9.Term7-911\ACA\Projects\Project6 - MIPS (pipeline)
+R1
+R2
+R3
+L0 930
+R4
+r1
+31
+R5
+!s100 L5cD]mSh6dM@kUm=B4d]`3
+!s85 0
+vmy_alu
+I?F87ziJ2ZF>`ZO5b=B]gO2
+V=lSDkk5?]KAhU:l3;4?W01
+R6
+R1
+R2
+R3
+L0 797
+R4
+r1
+31
+R5
+!s100 =I2GU5U6GA[A<[n5[TWYc3
+!s85 0
+vpipeline_mips
+IUXdTOI1bJzXIaU_zXmehb2
+VPNQ:ciX_1blHoLMm53R=Q2
+R6
+R1
+R2
+R3
+L0 24
+R4
+r1
+31
+R5
+!s100 XVE6=C1mmWPT@NeSkF6GP3
+!s85 0
+vpipeline_mips__tb
+!s100 5oP6VMPRSoaGGz9`J>WkP1
+IPT>EZ47FTkVJ:NnUd:AJj0
+VXb91Hf3``GZG2nF`nIH1_1
+R6
+w1357025369
+8D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips__tb.v
+FD:/My Desktop/ee/9.Term7-911/ACA/Projects/Project6 - MIPS (pipeline)/pipeline_mips__tb.v
+L0 4
+R4
+r1
+!s85 0
+31
+R5
+vreg_file
+IY^EA@Ri]_7Ag?cCKjQVf>1
+VhS7TEIC^ekO`FilNgEd2J3
+R6
+R1
+R2
+R3
+L0 764
+R4
+r1
+31
+R5
+!s100 K@[jKA16XD]G`=icb8[il2
+!s85 0
+vsigned_multiplier
+IOQcCA8VjE9_PaV3ol=g<H2
+VFe<doaiKWZ:0UB6`T6IJU3
+R6
+R1
+R2
+R3
+L0 828
+R4
+r1
+31
+R5
+!s100 k9:B9O>h9ijzZlnG@fZ:72
+!s85 0

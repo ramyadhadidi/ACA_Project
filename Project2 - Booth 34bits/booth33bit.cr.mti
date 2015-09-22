@@ -1,0 +1,16 @@
+{D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project2 - Booth 34bits/multiplier__tb.v} {1 {vlog -work work -nocovercells {D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project2 - Booth 34bits/multiplier__tb.v}
+Model Technology ModelSim ALTERA vlog 6.4a Compiler 2008.08 Oct 22 2008
+-- Compiling module multiplier__tb
+
+Top level modules:
+	multiplier__tb
+
+} {} {}} {D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project2 - Booth 34bits/signed_multiplier.v} {1 {vlog -work work -nocovercells {D:/My Desktop/ee/9.Term7-911/ACA/Projects/Project2 - Booth 34bits/signed_multiplier.v}
+Model Technology ModelSim ALTERA vlog 6.4a Compiler 2008.08 Oct 22 2008
+-- Compiling module signed_multiplier
+-- Compiling module full_adder
+
+Top level modules:
+	signed_multiplier
+
+} {} {}}
